@@ -38,7 +38,6 @@ use Novutec\WhoisParser\Exception\WriteErrorException;
  */
 class Socket extends AbstractAdapter
 {
-
     /**
      * ProxyList cache
      *
@@ -100,7 +99,7 @@ class Socket extends AbstractAdapter
         $rawdata = '';
 
         do {
-            if (stream_select($read, $write, $except, 30) === false) {
+            if (stream_select($read, $write, $except, AbstractAdapter::CONNECTION_TIMEOUT) === false) {
                 break;
             }
 
@@ -146,7 +145,7 @@ class Socket extends AbstractAdapter
         }
         else {
             $errno = $errstr = null;
-            $this->sock = @stream_socket_client('tcp://' . $config['server'] . ':' . $config['port'], $errno, $errstr, 30);
+            $this->sock = @stream_socket_client('tcp://' . $config['server'] . ':' . $config['port'], $errno, $errstr, AbstractAdapter::CONNECTION_TIMEOUT);
         }
 
         if (! is_resource($this->sock)) {
@@ -196,7 +195,7 @@ class Socket extends AbstractAdapter
             throw new ConnectErrorException('Unknown proxy type:' . $proxyConfig['type']);
         }
 
-        $socket = @stream_socket_client($proxyScheme . $proxyHost, $errno, $errstr, 30);
+        $socket = @stream_socket_client($proxyScheme . $proxyHost, $errno, $errstr, AbstractAdapter::CONNECTION_TIMEOUT);
 
         if (! is_resource($socket)) {
             throw new ConnectErrorException('Unable to connect to proxy ' . $proxyScheme . $proxyHost);

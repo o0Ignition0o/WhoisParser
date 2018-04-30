@@ -58,7 +58,7 @@ class Http extends AbstractAdapter
         $url = $config['server'] . str_replace(array_keys($replacements), array_values($replacements), $config['format']);
         
         curl_setopt($this->sock, CURLOPT_USERAGENT, 'PHP');
-        curl_setopt($this->sock, CURLOPT_TIMEOUT, 30);
+        curl_setopt($this->sock, CURLOPT_TIMEOUT, AbstractAdapter::CONNECTION_TIMEOUT);
         curl_setopt($this->sock, CURLOPT_HEADER, false);
         curl_setopt($this->sock, CURLOPT_SSL_VERIFYPEER, 'OFF');
         curl_setopt($this->sock, CURLOPT_SSLVERSION, 3);

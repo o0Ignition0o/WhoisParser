@@ -34,6 +34,7 @@ namespace Novutec\WhoisParser\Adapter;
  */
 abstract class AbstractAdapter
 {
+    const CONNECTION_TIMEOUT = 1;
 
     /**
      * Is successfully connected to the whois server?
